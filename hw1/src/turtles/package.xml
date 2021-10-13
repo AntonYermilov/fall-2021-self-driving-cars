@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>turtles</name>
+  <version>0.0.0</version>
+  <description>The turtles package</description>
+  <maintainer email="anton.yermilov@gmail.com">eranik</maintainer>
+  <buildtool_depend>catkin</buildtool_depend>
+  <license>No license</license>
+  <export></export>
+</package>
