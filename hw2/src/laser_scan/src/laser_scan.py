@@ -19,16 +19,17 @@ class ScanCallback:
 
     def __call__(self, msg: LaserScan):
         ranges = np.array(msg.ranges)
-        deltas = np.abs(ranges[2:] - 2 * ranges[1:-1] + ranges[:-2])
+        angles = msg.angle_min + msg.angle_increment * np.arange(len(msg.ranges))
 
         # remove points with too big distances to their neighbours
         # as eps we use median value among all deltas
+        deltas = np.abs(ranges[2:] - 2 * ranges[1:-1] + ranges[:-2])
         eps = np.median(deltas) * 3
 
         mask = np.ones_like(ranges, dtype=bool)
         mask[1:-1] = deltas < eps
 
-        angles = msg.angle_min + msg.angle_increment * np.arange(len(msg.ranges))
+        # get filtered points
         xs = ranges[mask] * np.cos(angles[mask])
         ys = ranges[mask] * np.sin(angles[mask])
 
